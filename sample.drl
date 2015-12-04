@@ -1,0 +1,95 @@
+package com.sample
+ 
+//import com.sample.DroolsTest.Message;
+import com.sample.DroolsTest.Question;
+import com.sample.DroolsTest.DisplayFrame;
+import java.util.List;
+import java.util.ArrayList;
+import com.sample.DroolsTest.Chosen;
+/*
+query "show"
+	q: DisplayFrame();
+end
+/*
+rule "temperatura"
+	when
+		q: DisplayFrame();
+		not Question(nazwaPytania == "temperatura" );
+	then
+		insert(new Question("temperatura"));
+		
+		List <String> list = new ArrayList<String>();
+		list.add("Ciepło");
+		list.add("Zimno");
+		q.setQuestion("Jaką temperaturę wolisz?", list);
+		//retract(q);
+end
+*/
+rule "poraRoku"
+	when
+		q: DisplayFrame();
+		not Question(nazwaPytania == "poraRoku");
+	then
+		String[] list = {"lato", "zima"};
+		String m = new String();
+		q.setQuestion2("Lato czy zima?", list);
+		q.waiting(10000);
+		m =  q.getKotek();
+		System.out.println("NIco "+(String)m);
+		
+		insert(new Chosen(m));
+		insert(new Question("poraRoku"));
+		System.out.println("Set");
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "cel" 
+	when	
+		//(and
+			q: DisplayFrame()
+			Question(nazwaPytania == "poraRoku")
+			Chosen(nazwa == "lato")
+			not Question (nazwaPytania == "cel")
+		//)
+	then
+		insert(new Question("cel"));
+		System.out.println("do celu");
+		//List <String> list = new ArrayList<String> ();
+		//list.add("cel");
+		q.setQuestion2("Wybrano letnie wakacje na Majorce", new String[] {"Wakacje"});
+		retract(q);
+end
+
+rule "Florencja"
+	when
+		q: DisplayFrame();
+	
+			Chosen(nazwa == "lato");
+			Chosen(nazwa == "zwiedzanie");
+			Chosen(nazwa == "aktywnie");
+			Chosen(nazwa == "zagranica");
+			Chosen(nazwa == "Europa");
+			Chosen(nazwa == "Włochy");
+		
+	then
+		System.out.println("Florencja");
+end
+ /*
+rule "Hello World"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println( myMessage );
+        m.setMessage( "Goodbye cruel world" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "GoodBye"
+    when
+        Message( status == Message.GOODBYE, myMessage : message )
+    then
+        System.out.println( myMessage );
+end
+*/
