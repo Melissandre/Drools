@@ -30,7 +30,6 @@ import javax.swing.*;
  */
 public class DroolsTest {
 	
-	//NewJFrame frame = new NewJFrame("kot",new String[]{"kot"});
 	public static String kotek;
 
     public static final void main(String[] args) {
@@ -97,23 +96,23 @@ public class DroolsTest {
     		System.out.println("Utworzono displayFrame");
     	}
     	
+    	public void setQuestionGoal (String nazwa) {
+    		NewJFrame frame = new NewJFrame(nazwa,new String[] {});
+    		frame.setVisible(true);
+    	}
+    	
     	public void setQuestion2 (String nazwaPytania, String[] lista) {
     		NewJFrame frame = new NewJFrame(nazwaPytania,lista);
     		frame.setVisible(true);
-    		//String f = frame.getNew();
-    		//System.out.println("toCreateNewOne "+ f);
-    		//return frame.toCreateNewOne;
+    		while(frame.counter < 1) {
+    			waiting(100);
+    		}
     	}
     	
     	public String getKotek() {
     		return DroolsTest.kotek;
     	}
-    	/*
-    	public String koteczek() {
-    		String kociu = this.kotek;
-    		return kociu;
-    	}
-    	*/
+    	
     	public void waiting(int miliseconds){
 
         	try {
