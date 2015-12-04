@@ -14,6 +14,7 @@ import com.sample.DroolsTest.*;
 public class NewJFrame extends javax.swing.JFrame {
 
     public String toCreateNewOne;
+    public int counter = 0;
 	/**
      * Creates new form NewJFrame
      */
@@ -35,7 +36,10 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        
+        if(lista.length == 0) {
+        	jComboBox2.setVisible(false);
+        }
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(lista));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +93,7 @@ public class NewJFrame extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	counter++;
     	String choose = (String)jComboBox2.getSelectedItem();
     	System.out.println("Wybrano "+choose);
     	DroolsTest dr = new DroolsTest();
