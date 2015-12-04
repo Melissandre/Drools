@@ -1,2 +1,2 @@
 # Drools
-#1 oczekiwanie na naciśnięcie przycisku, ostatnie okienko bez comboboxa
+#1 reakcja kolejnych regu na podjete decyzje, oczekiwanie na naciśnięcie przycisku, ostatnie okienko bez comboboxa
