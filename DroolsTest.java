@@ -82,15 +82,7 @@ public class DroolsTest {
     	}
     }
     
-    private static class SwingBlocker implements ActionListener{
-    	@Override public void actionPerformed(ActionEvent arg0) {
-    	            //System.out.println(dialog.getAnswer());
-    	        }
-    	}
-    
     public static class DisplayFrame implements Runnable{
-    	
-    	SwingBlocker blocker = new SwingBlocker();
     	
     	public DisplayFrame() {
     		System.out.println("Utworzono displayFrame");
@@ -133,32 +125,4 @@ public class DroolsTest {
     		
     	}
     }
-/*
-    public static class Message {
-
-        public static final int HELLO = 0;
-        public static final int GOODBYE = 1;
-
-        private String message;
-
-        private int status;
-
-        public String getMessage() {
-            return this.message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public int getStatus() {
-            return this.status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-    }
-*/
 }
