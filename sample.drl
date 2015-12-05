@@ -6,73 +6,243 @@ import java.util.List;
 import java.util.ArrayList;
 import com.sample.DroolsTest.Chosen;
 
-rule "temperatura"
-	when
-		q: DisplayFrame();
-		not Question(nazwaPytania == "temperatura" );
-	then
-		String[] list = {"ciepło", "zimno"};
-		String m = new String();
-		q.setQuestionB("Jaką temp wolisz",list);
-		//q.setQuestion2("Jaką temperaturę wolisz?", list);
-		m =  q.getKotek();
-		
-		insert(new Chosen(m));
-		insert(new Question("temperatura"));
-		insert(new DisplayFrame());
-		retract(q);
-		
-		//retract(q);
-end
-
 rule "poraRoku"
 	when
 		q: DisplayFrame();
-		Question(nazwaPytania == "temperatura");
 		not Question(nazwaPytania == "poraRoku");
 	then
 		String[] list = {"lato", "zima"};
 		String m = new String();
 		q.setQuestionB("Lato czy zima?", list);
-		m =  q.getKotek();
-		
+		m =  q.getKotek();		
 		insert(new Chosen(m));
 		insert(new Question("poraRoku"));
-		//System.out.println("Set");
 		insert(new DisplayFrame());
 		retract(q);
 end
 
-rule "cel" 
-	when	
-		//(and
-			q: DisplayFrame()
-			Question(nazwaPytania == "poraRoku")
-			Question(nazwaPytania == "temperatura")
-			Chosen(nazwa == "lato")
-			not Chosen(nazwa == "zimno")
-			not Question (nazwaPytania == "cel")
-		//)
+rule "cel"
+	when
+		q: DisplayFrame();
+		not Question(nazwaPytania == "cel");
 	then
+		String[] list = {"Polska", "Zagranica"};
+		String m = new String();
+		q.setQuestionB("Polska czy zagranica?", list);
+		m =  q.getKotek();		
+		insert(new Chosen(m));
 		insert(new Question("cel"));
-		System.out.println("do celu");
-		q.setQuestionGoal("Wybrano letnie wakacje na Majorce");
+		insert(new DisplayFrame());
 		retract(q);
 end
 
-rule "Florencja"
+rule "aktywnosc"
 	when
 		q: DisplayFrame();
-	
-			Chosen(nazwa == "lato");
-			Chosen(nazwa == "zimno");
-			//Chosen(nazwa == "zwiedzanie");
-			//Chosen(nazwa == "aktywnie");
-			//Chosen(nazwa == "zagranica");
-			//Chosen(nazwa == "Europa");
-			//Chosen(nazwa == "Włochy");
-		
+		not Question(nazwaPytania == "aktywnosc");
 	then
-		System.out.println("Florencja");
-		q.setQuestionGoal("Wybrano letnie wakacje we Florencji");
+		String[] list = {"Aktywny wypoczynek", "Ciągłe zwiedzanie", "Miłe leniuchowanie"};
+		String m = new String();
+		q.setQuestionB("Jaka forma wypoczynku Ci najbardziej odpowiada?", list);
+		m =  q.getKotek();		
+		insert(new Chosen(m));
+		insert(new Question("aktywnosc"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "leniuchowanie"
+	when
+		q: DisplayFrame();
+		Question(nazwaPytania == "aktywnosc");
+		Chosen( nazwa == "zima")
+		Chosen( nazwa == "Miłe leniuchowanie")
+		not Question(nazwaPytania == "leniuchowanie");
+	then
+		String[] list = {"Ciepło-zimno", "Widok na świat"};
+		String m = new String();
+		q.setQuestionB("Która propozycja Cię najbardziej zachwyca?", list);
+		m =  q.getKotek();		
+		insert(new Chosen(m));
+		insert(new Question("zwiedzanie"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "zwiedzanie"
+	when
+		q: DisplayFrame();
+		Question(nazwaPytania == "aktywnosc");
+		Chosen( nazwa == "zima")
+		Chosen( nazwa == "Ciągłe zwiedzanie")
+		not Question(nazwaPytania == "zwiedzanie");
+	then
+		String[] list = {"Piękno kolorów", "Wizyta u Mikołaja", "Ptasie rodziny"};
+		String m = new String();
+		q.setQuestionB("Która propozycja Cię najbardziej zachwyca?", list);
+		m =  q.getKotek();		
+		insert(new Chosen(m));
+		insert(new Question("zwiedzanie"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "aktywnySport"
+when
+		q: DisplayFrame();
+		Question(nazwaPytania == "aktywnosc");
+		Chosen( nazwa == "zima")
+		Chosen( nazwa == "Aktywny wypoczynek")
+		not Question(nazwaPytania == "aktywnySport");
+	then
+		String[] list = {"Król nart", "Mistrz łyżew"};
+		String m = new String();
+		q.setQuestionB("Jakie jest Twoje 'alter ego'?", list);
+		m =  q.getKotek();		
+		insert(new Chosen(m));
+		insert(new Question("aktywnySport"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "Karpacz"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Król nart")
+	then
+		q.setQuestionGoal("Twoim wymarzonym celem podróży jest Karpacz!");
+		retract(q);
+end
+
+rule "Canazei"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "zagranica")
+		Chosen(nazwa == "Król nart")
+	then
+		q.setQuestionGoal("Twoim wymarzonym celem podróży jest Canazei -  pośmigaj w Dolomitach!");
+		retract(q);
+end
+
+rule "Torwar"
+	when
+		q: DisplayFrame();
+		Chosen (nazwa == "Mistrz łyżew")
+		Chosen (nazwa == "Polska")
+	then
+		q.setQuestionGoal("Kierunek Warszawa! Pośmigaj na łyżwach na Torwarze");
+		retract(q);
+end
+
+rule "Amsterdam"
+	when
+		q: DisplayFrame();
+		Chosen (nazwa == "Mistrz łyżew")
+		Chosen (nazwa == "zagranica")
+		not Question( nazwaPytania == "Amsterdam")
+	then
+		q.setQuestionGoal("Poczuj się jak prawdziwy Holender i przejedź się zamarzniętymi kanałami!");
+		retract(q);
+end
+
+rule "Wroclaw"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Piękno kolorów")
+		Chosen (nazwa == "Polska")
+	then
+		q.setQuestionGoal("Odnajdź kolory w środku zimy - odwiedź wrocławskie Afrykanarium!");
+		retract(q);
+end
+
+rule "Lofoty"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Piękno kolorów")
+		not Question( nazwaPytania == "Lofoty")
+	then
+		q.setQuestionGoal("Twoim wymarzonym celem podróży są Lofoty!");
+		retract(q);
+end
+
+rule "Lodz"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "Wizyta u Mikołaja")
+		Chosen(nazwa == "Polska")
+	then
+		q.setQuestionGoal("Odwiedz Mikołaja w jego krainie przygotowanej w Kołacinku pod Łodzią!");
+end
+
+rule "Laponia"
+	when
+		q: DisplayFrame()
+		Chosen (nazwa == "zagranica")
+		Chosen(nazwa == "Wizyta u Mikołaja")
+		not Question(nazwaPytania == "Laponia")
+	then
+		q.setQuestionGoal("Pakuj się szybko i leć do Laponii!");
+end
+
+rule "Kołobrzeg"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Ptasie rodziny")
+	then
+		q.setQuestionGoal("Pakuj się szybko i jedź do Kołobrzegu!");
+		retract(q);
+end
+
+rule "Antarktyda"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "zagranica")
+		Chosen(nazwa == "Ptasie rodziny")
+	then
+		q.setQuestionGoal("Wyrusz w rejs na Antarktydę!");
+		retract(q);
+end
+
+rule "Stubai"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "zagranica")
+		Chosen(nazwa == "Ciepło-zimno")
+	then
+		q.setQuestionGoal ("Opalanie na lodowcu? Czemu nie! Kierunek: Stubai!");
+		retract(q);
+		
+end
+
+rule "Berlin"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Ciepło-zimno")
+	then
+		q.setQuestionGoal ("Berlin to prawie Polska, nieprawdaż? Szybki przejazd autostradą i udana zabawa na Tropikalnej Wyspie pod Berlinem gwarantowana :)");
+		retract(q);
+		
+end
+
+rule "Sniezka"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Widok na świat");
+	then
+		q.setQuestionGoal("Lubisz smaczną kawę? Czemu nie wypić jej na Śnieżce? W wersji dla wygodnych - wjazd na szczyt od czeskiej strony!");
+		retract(q);
+end
+
+rule "Zugspitze"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "zagranica")
+		Chosen(nazwa == "Widok na świat");
+	then
+		q.setQuestionGoal("Lubisz smaczną kawę? Czemu nie wypić jej na wysokości prawie 3000 m.n.p.m.? Czas na Zugspitze!");
+		retract(q);
 end
