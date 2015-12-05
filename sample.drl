@@ -13,7 +13,8 @@ rule "temperatura"
 	then
 		String[] list = {"ciepło", "zimno"};
 		String m = new String();
-		q.setQuestion2("Jaką temperaturę wolisz?", list);
+		q.setQuestionB("Jaką temp wolisz",list);
+		//q.setQuestion2("Jaką temperaturę wolisz?", list);
 		m =  q.getKotek();
 		
 		insert(new Chosen(m));
@@ -32,7 +33,7 @@ rule "poraRoku"
 	then
 		String[] list = {"lato", "zima"};
 		String m = new String();
-		q.setQuestion2("Lato czy zima?", list);
+		q.setQuestionB("Lato czy zima?", list);
 		m =  q.getKotek();
 		
 		insert(new Chosen(m));
@@ -73,4 +74,5 @@ rule "Florencja"
 		
 	then
 		System.out.println("Florencja");
+		q.setQuestionGoal("Wybrano letnie wakacje we Florencji");
 end
