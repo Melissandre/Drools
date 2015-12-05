@@ -109,6 +109,14 @@ public class DroolsTest {
     		}
     	}
     	
+    	public void setQuestionB (String nazwaPytania, String[] lista) {
+    		FrameWithButtons fr = new FrameWithButtons();
+    		fr.wyswietl(nazwaPytania, lista);
+    		while(fr.counter < 1) {
+    			waiting(100);
+    		}
+    	}
+    	
     	public String getKotek() {
     		return DroolsTest.kotek;
     	}
