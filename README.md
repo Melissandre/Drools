@@ -4,3 +4,5 @@
 2 zmiana okienek z combobox na radiobutton, utrzymano oczekiwanie, dodac koncowy ekran
 #
 3 20 reguł, działa bez przeszkód dla całej zimy
+#
+4 Stworzenie nowej galazki jako realizacji nowego spojrzenia na nasz super projekt - na razie 25 regul
