@@ -95,7 +95,25 @@ rule "czas"
 		retract(q);
 end
 
-/*
+
+rule "urlop"
+	when
+		q: DisplayFrame();
+		Question(nazwaPytania == "aktywnosc");
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "Ciągłe zwiedzanie")
+		not Question(nazwaPytania == "urlop");
+	then
+		String[] list = {"weekend", "od kilku dni wzwyż"};
+		q.setQuestionB("Jak długo będą trwać Twoje wakacje?", list);
+		String m = q.getKotek();
+		insert(new Chosen(m));
+		insert(new Question("urlop"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+
 rule "akumulatory"
 	when
 		q: DisplayFrame();
@@ -111,7 +129,7 @@ rule "akumulatory"
 		insert(new DisplayFrame());
 		retract(q);
 end
-*/
+
 
 // Cele podróży
 
@@ -134,11 +152,25 @@ rule "Chiny"
 		Chosen(nazwa == "lato")
 		Chosen(nazwa == "ziemia")
 		Chosen(nazwa == "Zagranica")
-		Chosen(nazwa == "Ciagłe zwiedzanie")
+		Chosen(nazwa == "od kilku dni wzwyż")
 		Chosen(nazwa == "z rodziną")
 		Chosen(nazwa == "wśród ludzi")
 	then
 		q.setQuestionGoal("Wybierz się do Chin!");
+		retract(q);
+end
+
+rule "Hiszpania"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Zagranica")
+		Chosen(nazwa == "weekend")
+		Chosen(nazwa == "z rodziną")
+		Chosen(nazwa == "wśród ludzi")
+	then
+		q.setQuestionGoal("Wybierz się do Hiszpanii!");
 		retract(q);
 end
 
@@ -161,10 +193,23 @@ rule "Namibia"
 		Chosen(nazwa == "lato")
 		Chosen(nazwa == "ziemia")
 		Chosen(nazwa == "Zagranica")
-		Chosen(nazwa == "Ciągłe zwiedzanie")
-		Chosen(nazwa == "ze znajomymi")
+		Chosen(nazwa == "od kilku dni wzwyż")
+		Chosen(nazwa == "ze znajomymi" || nazwa == "z rodziną")
 	then
 		q.setQuestionGoal("Wybierz się do Namibii!");
+		retract(q);
+end
+
+rule "Chorwacja"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Zagranica")
+		Chosen(nazwa == "weekend")
+		Chosen(nazwa == "ze znajomymi" || nazwa == "z rodziną")
+	then
+		q.setQuestionGoal("Wybierz się do Chorwacji!");
 		retract(q);
 end
 
@@ -174,10 +219,23 @@ rule "Islandia"
 		Chosen(nazwa == "zima")
 		Chosen(nazwa == "ziemia")
 		Chosen(nazwa == "Zagranica")
-		Chosen(nazwa == "Ciagłe zwiedzanie")
+		Chosen(nazwa == "od kilku dni wzwyż")
 		Chosen(nazwa == "samotnie")
 	then
 		q.setQuestionGoal("Wybierz się do Islandii!");
+		retract(q);
+end
+
+rule "Dania"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "zima")
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Zagranica")
+		Chosen(nazwa == "CWeekend")
+		Chosen(nazwa == "samotnie")
+	then
+		q.setQuestionGoal("Wybierz się do Danii!");
 		retract(q);
 end
 
@@ -185,7 +243,10 @@ rule "SPA"
 	when
 		q: DisplayFrame();
 		Chosen(nazwa == "Zagranica")
-		Chosen(nazwa == "dbam o urodę")
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "z ukochaną osobą")
+		Chosen(nazwa == "samotnie")
+		Chosen(nazwa == "dbam o zdrowię/urodę")
 	then
 		q.setQuestionGoal("Zafunduj sobie luksusową kąpiel wewnątrz winnych beczek lub masaż wodny wzbogacany ekstraktami winnymi w najlepszym hotelu-spa w Europie - The Yatman z Vila Nova de Gaia!");
 		retract(q);
@@ -225,7 +286,7 @@ rule "Skorzecin"
 		Chosen(nazwa == "lato")
 		Chosen(nazwa == "woda")
 		Chosen(nazwa == "Miłe leniuchowanie")
-		Chosen(nazwa == "ze znajomymi")
+		Chosen(nazwa == "ze znajomymi" || nazwa == "z rodziną")
 		Chosen(nazwa == "wśród ludzi")
 	then
 		q.setQuestionGoal("Zabierz ze sobą znajomych i zaszalejcie na imprezach w Skorzęcinie!");
@@ -237,7 +298,7 @@ rule "Baltyk"
 		q: DisplayFrame();
 		Chosen(nazwa == "Polska")
 		Chosen(nazwa == "woda")
-		//Chosen(nazwa == "ze znajomymi" || nazwa == "z rodziną")
+		Chosen(nazwa == "z rodziną")
 		Chosen(nazwa == "samotnie")
 	then
 		q.setQuestionGoal("Wybierz się nad polskie morze, które z pewnością zapewni Ci aktywny wypoczynek! Spróbuj wakeboard'u!");
@@ -249,7 +310,7 @@ rule "Maremma"
 		q: DisplayFrame();
 		Chosen(nazwa == "Zagranica")
 		Chosen(nazwa == "lato")
-		Chosen(nazwa == "Miłe leniuchowanie")
+		Chosen(nazwa == "czytam książkę")
 		Chosen(nazwa == "z ukochaną osobą")
 		Chosen(nazwa == "samotnie")
 	then
@@ -311,26 +372,54 @@ rule "Zugspitze"
 		retract(q);
 end
 
-rule "lofoty"
+rule "Lofoty"
 	when
 		q: DisplayFrame()
 		Chosen(nazwa == "Zagranica")
 		Chosen(nazwa == "woda");
+		Chosen(nazwa == "Ciągłe zwiedzanie")
 		Chosen(nazwa == "samotnie");
 	then
 		q.setQuestionGoal("Zobacz lofoty! ");
 		retract(q);
 end
 
-rule "poznan"
+rule "Poznan"
 	when
 		q: DisplayFrame()
 		Chosen(nazwa == "Polska")
 		Chosen(nazwa == "ziemia");
-		Chosen(nazwa == "Aktywny wypoczynek");
+		Chosen(nazwa == "w granicach normy");
 		Chosen(nazwa == "samotnie");
 	then
 		q.setQuestionGoal("Poznań - miasto doznań! Poznaj piękno tego miasta a w wolnej chwili wybierz się np. do parku linowego!");
+		retract(q);
+end
+
+rule "szalenstwo"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "Aktywny wypoczynek")
+		not Question(nazwaPytania == "szalenstwo")
+	then
+		String[] list = {"w granicach normy", "odrobina szaleństwa"};
+		q.setQuestionB("Jak określisz poziom swojego szaleństwa ;) ?", list);
+		String m = q.getKotek();
+		insert(new Chosen(m));
+		insert(new Question("szalenstwo"));
+		insert(new DisplayFrame());
+		retract(q);
+end
+
+rule "Skalki"
+	when
+		q: DisplayFrame()
+		Chosen(nazwa == "odrobina szaleństwa")
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "samotnie")
+		Chosen(nazwa == "ziemia")
+	then
+		q.setQuestionGoal("Wypad na skałki? Czemu nie! Ruszaj na południe i powspinaj się trochę!");
 		retract(q);
 end
 
@@ -340,9 +429,9 @@ rule "Rafa"
 		Chosen(nazwa == "Zagranica")
 		Chosen(nazwa == "lato")
 		Chosen(nazwa == "woda")
-		Chosen(nazwa == "Aktywny wypoczynek" || nazwa == "Ciagłe zwiedzanie")
+		Chosen(nazwa == "Aktywny wypoczynek" || nazwa == "Ciągłe zwiedzanie")
 	then
-		q.setQuestionGoal("Sprawdź co kryje Ocean. Odwiedź rafę koralową i głębiny oceanu w batyskafie, zobacz wrak zatopiony u wybrzeży Anglii!");
+		q.setQuestionGoal("Sprawdź co kryje Ocean. Odwiedź rafę koralową i głębiny oceanu w batyskafie!");
 		retract(q);
 end
 
@@ -352,21 +441,118 @@ rule "Amsterdam"
 		Chosen (nazwa == "woda")
 		Chosen (nazwa == "zima")
 		Chosen (nazwa == "Zagranica")
-		Chosen (nazwa == "Aktywny wypoczynek")
+		Chosen (nazwa == "Aktywny wypoczynek" || nazwa == "Ciągłe zwiedzanie")
 		not Question( nazwaPytania == "Amsterdam")
 	then
 		q.setQuestionGoal("Poczuj się jak prawdziwy Holender i przejedź się zamarzniętymi kanałami!");
 		retract(q);
 end
 
+//rule "A"
+//woda
+//zima
+//z ukochaną osobą
+//aktywny wypoczynek
+//Zagranica
+//end
+
 rule "Wroclaw"
 	when
 		q: DisplayFrame();
 		Chosen(nazwa == "ziemia")
-		Chosen(nazwa == "Ciagłe zwiedzanie")
+		Chosen(nazwa == "Ciągłe zwiedzanie")
 		Chosen(nazwa == "wśród ludzi")
 		Chosen (nazwa == "Polska")
 	then
 		q.setQuestionGoal("Odnajdź kolory nawet w środku zimy - odwiedź wrocławskie Afrykanarium!");
+		retract(q);
+end
+
+rule "Hancza"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Aktywny wypoczynek")
+		Chosen(nazwa == "ze znajomymi" || nazwa == "z ukochaną osobą")
+		Chosen(nazwa == "woda")
+		Chosen(nazwa == "lato")
+	then
+		q.setQuestionGoal("Zanurkuj w Jeziorze Hańcza! Masz szansę na niezwykłą, podwodną sesję zdjęciową!");
+		retract(q);
+end
+
+rule "Torwar"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Aktywny wypoczynek")
+		Chosen(nazwa == "ze znajomymi" || nazwa == "z ukochaną osobą")
+		Chosen(nazwa == "woda")
+		Chosen(nazwa == "zima")
+	then
+		q.setQuestionGoal("Kierunek Warszawa! Pośmigaj na łyżwach na Torwarze");
+		retract(q);
+end
+
+rule "Malopolska"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Ciągłe zwiedzanie")
+		Chosen(nazwa == "samotnie")
+	then
+		q.setQuestionGoal("Odwiedź magiczną Małopolskę! Ciemne głębiny bocheńskiej i wielickiej kopalni, gwarny i roztańczony krakowski Rynek Główny czy pokazy i warsztaty regionalnego rzemiosła - to wszystko czeka właśnie na Ciebie!");
+		retract(q);
+end
+
+rule "Alpy"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "Zagranica")
+		Chosen(nazwa == "zima")
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Aktywny wypoczynek")
+	then
+		q.setQuestionGoal("Mont Blanc to Twój wymarzony cel! Najwyższy szczyt Europy (4810 m n.p.m.) jest do zdobycia! Możesz też wjechać kolejką linową na Aiguille du Midi (3842 m n.p.m.).");
+		retract(q);
+end
+
+rule "Rzym"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "z ukochaną osobą")
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "ziemia")
+		Chosen(nazwa == "Zagranica")
+		Chosen(nazwa == "Aktywny wypoczynek")
+	then
+		q.setQuestionGoal("Wyrusz na wyprawę z ukochanym do Rzymu! Aby aktywnie spędzić ten czas, chodźcie wszędzie pieszo, a poznacie najbardziej urokliwe zakątki miasta zakochanych.");
+		retract(q);
+end
+
+rule "Kaszuby"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "wśród ludzi")
+		Chosen(nazwa == "z rodziną")
+		Chosen(nazwa == "Aktywny wypoczynek")
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "woda")
+		Chosen(nazwa == "lato")
+	then
+		q.setQuestionGoal("Wyrusz z rodziną na spływ kajakowy Brdą lub Zbrzycą! Niezapomniane wspomnienia i dobra zabawa gwarantowane!");
+		retract(q);
+end
+
+rule "Malbork"
+	when
+		q: DisplayFrame();
+		Chosen(nazwa == "lato")
+		Chosen(nazwa == "woda")
+		Chosen(nazwa == "Polska")
+		Chosen(nazwa == "Ciagłe zwiedzanie")
+	then
+		q.setQuestionGoal("Wyrusz szlakiem nadwiślańskich zamków krzyżackich - Malbork, Kwidzyn, Gniew!");
 		retract(q);
 end
