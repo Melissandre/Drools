@@ -307,7 +307,7 @@ rule "Bukovina"
 		Chosen(nazwa == "woda")
 		Chosen(nazwa == "Miłe leniuchowanie")
 		Chosen(nazwa == "samotnie")
-		Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
+		//Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
 		Chosen(nazwa == "dbam o urodę/zdrowie")
 	then
 		q.setQuestionGoal("Wybierz się do SPA Bukovina! Różne zabiegi na pewno pozwolą Ci się wyjątkowo zrelaksować!");
@@ -348,7 +348,7 @@ rule "Wieliczka"
 		Chosen(nazwa == "ziemia")
 		Chosen(nazwa == "Miłe leniuchowanie")
 		Chosen(nazwa == "samotnie")
-		Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
+		//Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
 		Chosen(nazwa == "dbam o urodę/zdrowie")
 	then
 		q.setQuestionGoal("Wybierz się do Wieliczki i skorzystaj z oferty zabiegów!");
@@ -362,7 +362,7 @@ rule "Rusinowo"
 		Chosen(nazwa == "woda")
 		Chosen(nazwa == "Miłe leniuchowanie")
 		Chosen(nazwa == "samotnie")
-		Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
+		//Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
 		Chosen(nazwa == "czytam książkę")
 	then
 		q.setQuestionGoal("Jedna z najpiękniejszych plaż w środkowej części naszego Wybrzeża - wybierz się do Rusinowa - spokojnego miejsca nad morzem obok gwarnego Jarosławca!");
@@ -376,7 +376,7 @@ rule "Rodos"
 		Chosen(nazwa == "ziemia")
 		Chosen(nazwa == "Miłe leniuchowanie")
 		Chosen(nazwa == "samotnie")
-		Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
+		//Chosen(nazwa == "z ukochaną osobą" || nazwa == "ze znajomymi")
 		Chosen(nazwa == "czytam książkę")
 	then
 		q.setQuestionGoal("Wybierz się na RODOS - Rodzinne Ogródki Działkowe Otoczone Siatką! Tam poleniuchujesz i poczytasz swoją ulubioną książkę!");
