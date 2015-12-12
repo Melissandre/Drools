@@ -16,7 +16,7 @@ public class FrameWithButtons {
         JPanel panel = new JPanel(new GridLayout(opcje.length + 1, 1));
         panel.add(new JLabel(pytanie));
         JRadioButton[] buttons = new JRadioButton[opcje.length];
-        ButtonGroup buttonGroup = new ButtonGroup(); //trzeba bylo dodac, zeby kilka na raz sie nie zaznaczalo
+        ButtonGroup buttonGroup = new ButtonGroup();
         int i = 0;
         for (String str : opcje) {
         	buttons[i] = new JRadioButton(str);
@@ -28,9 +28,9 @@ public class FrameWithButtons {
         JOptionPane.showMessageDialog(null, panel, pytanie, JOptionPane.PLAIN_MESSAGE);
         for (JRadioButton checkBox : buttons) {
         	if (checkBox.isSelected()) {
-        		//return checkBox.getText();
         		DroolsTest dr = new DroolsTest();
-        		dr.kotek = (String) checkBox.getText();
+        		dr.chosen = (String) checkBox.getText();
+        		System.out.println(dr.chosen);
         		counter++;
         	}
         }
