@@ -17,8 +17,6 @@ rule "poraRoku"
 		m =  q.getChosen();		
 		insert(new Chosen(m));
 		insert(new Question("poraRoku"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "zywiol"
@@ -32,8 +30,6 @@ rule "zywiol"
 		m =  q.getChosen();		
 		insert(new Chosen(m));
 		insert(new Question("zywiol"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "cel"
@@ -47,8 +43,6 @@ rule "cel"
 		m =  q.getChosen();		
 		insert(new Chosen(m));
 		insert(new Question("cel"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "aktywnosc"
@@ -62,8 +56,6 @@ rule "aktywnosc"
 		m =  q.getChosen();		
 		insert(new Chosen(m));
 		insert(new Question("aktywnosc"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "zKim"
@@ -76,8 +68,6 @@ rule "zKim"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("zKim"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "czas"
@@ -90,8 +80,6 @@ rule "czas"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("czas"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 
@@ -108,8 +96,6 @@ rule "urlop"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("urlop"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 
@@ -126,8 +112,6 @@ rule "akumulatory"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("akumulatory"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "kontynent"
@@ -144,8 +128,6 @@ rule "kontynent"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("kontynent"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "morzeCzyOcean"
@@ -163,8 +145,6 @@ rule "morzeCzyOcean"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("morzeCzyOcean"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "Teneryfa"
@@ -570,8 +550,6 @@ rule "szalenstwo"
 		String m = q.getChosen();
 		insert(new Chosen(m));
 		insert(new Question("szalenstwo"));
-		insert(new DisplayFrame());
-		retract(q);
 end
 
 rule "Skalki"
